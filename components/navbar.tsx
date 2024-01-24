@@ -1,47 +1,117 @@
 import React, { useState } from 'react';
-
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '../components/ui/navigation-menu';
 import { BsBag, IoPersonOutline, AiOutlineHeart } from '../utils/icons';
+import { cn } from '../components/ui/utils';
 import SearchBar from './searchBar';
+import { accesoriesTags, menTags, womenTags } from '../utils/navigation-tags';
+
+
+const ListItem = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn('block select-none rounded-md py-1', className)}
+          {...props}
+        >
+          <p className='text-sm text-gray-500 hover:text-black'>{children}</p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = 'ListItem';
+
+
+const NavigationMenuColumn = ({ column } : {column: { title: string; items: { href: string; description: string }[] }[]}) => (
+  <div>
+    {column.map((component, componentIndex) => (
+      <div key={componentIndex} className='mb-6'>
+        <h2 className='font-semibold'>{component.title}</h2>
+        {component.items.map((item, itemIndex) => (
+          <ListItem key={itemIndex} href={item.href}>
+            {item.description}
+          </ListItem>
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+const NavigationMenuItemWithContent = ({
+  triggerText,
+  contentItems,
+}: {
+  triggerText: string;
+  contentItems: any;
+}) => (
+
+  <NavigationMenuItem>
+    <NavigationMenuTrigger>{triggerText}</NavigationMenuTrigger>
+    <NavigationMenuContent>
+      {renderNavigationItems(contentItems)}
+    </NavigationMenuContent>
+  </NavigationMenuItem>
+);
+
+const renderNavigationItems = (tags:any) => (
+  <ul className='flex flex-cols h-[35rem] w-dvw gap-x-20'>
+    {tags.map((column:any, columnIndex:number) => (
+      <NavigationMenuColumn key={columnIndex} column={column} />
+    ))}
+  </ul>
+);
 
 const Navbar = () => {
-
   const [input, setInput] = useState('');
 
   return (
-    <nav className='bg-gray-white border shadow'>
-      <div className='mx-auto px-2 sm:px-6 lg:px-8'>
-        <div className='relative flex h-20 items-center justify-between'>
-          <div className='flex flex-1 sm:items-stretch sm:justify-end sm:pr-44 sm:space-x-8'>
-            <h1 className='text-sm font-semibold'>MUJER</h1>
-            <h1 className='text-sm font-semibold'>HOMBRE</h1>
-            <h1 className='text-sm font-semibold'>ACCESORIOS</h1>
-          </div>
-          <div className='flex items-center justify-end sm:items-stretch sm:justify-end'>
-            <SearchBar input={input} setInput={setInput}/>
-          </div>
-          <div className='absolute inset-y-0 right-0 flex items-center gap-x-8 pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-            <AiOutlineHeart className=' cursor-pointer' size={20} />
-            <IoPersonOutline className='cursor-pointer ' size={20} />
-            <BsBag className='cursor-pointer' size={20} />
-
-            <div className='relative ml-3'>
-              <div>
-                <button
-                  type='button'
-                  className='relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'
-                  id='user-menu-button'
-                  aria-expanded='false'
-                  aria-haspopup='true'
-                >
-                  <span className='absolute -inset-1.5'></span>
-                  <span className='sr-only'>Open user menu</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem className='flex w-[10rem] justify-end'>
+          Logo
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuList className='w-[40rem] justify-end'>
+        <NavigationMenuItemWithContent
+          triggerText="Women"
+          contentItems={womenTags}
+        />
+        <NavigationMenuItemWithContent
+          triggerText="Mens"
+          contentItems={menTags}
+        />
+        <NavigationMenuItemWithContent
+          triggerText="Accessories"
+          contentItems={accesoriesTags}
+        />
+      </NavigationMenuList>
+      <NavigationMenuList className='mr-[5rem] gap-x-6'>
+        <NavigationMenuItem>
+          <SearchBar input={input} setInput={setInput} />
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <AiOutlineHeart size={20} />
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <IoPersonOutline size={20} />
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <BsBag size={20} />
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
   );
 };
 

@@ -8,7 +8,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navbar />
-        {children}
+      {children}
     </>
   );
 };

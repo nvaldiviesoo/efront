@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Layout>
       <div className='mx-10'>
-        <h1 className="text-2xl font-bold">20% DESCUENTO EN LOS ESENCIALES</h1>
+        <h1 className='text-2xl font-bold'>20% DESCUENTO EN LOS ESENCIALES</h1>
         <CarouselPlugin />
       </div>
     </Layout>

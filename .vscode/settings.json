@@ -1,5 +1,3 @@
 {
-  "conventionalCommits.scopes": [
-    "Layout"
-  ]
+  "conventionalCommits.scopes": ["Layout"]
 }
