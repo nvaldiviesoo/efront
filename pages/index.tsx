@@ -15,6 +15,7 @@ export default function Home() {
           {isLoading ? (
             <CarouselPlugin products={[]} />
           ) : (
+
             <CarouselPlugin products={data.data} />
           )}
       </div>

@@ -1,5 +1,5 @@
 import { Separator } from '@radix-ui/react-separator';
-import { zodResolver } from '@hookform/resolvers/zod';  
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -20,6 +20,7 @@ import {
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
+import Image from 'next/image';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -45,7 +46,7 @@ const Login = () => {
       </Card>
       <Separator orientation='vertical' className='' />
       <Card className='flex w-1/2 flex-col items-center justify-center'>
-        <CardHeader className='text-xl font-semibold'>MY LUPO</CardHeader>
+        <CardHeader className='text-xl font-semibold'><Image src={"/Logo.jpeg"} alt='Logo' width={200} height={200}/></CardHeader>
         <CardContent>
           <Tabs defaultValue='login' className='w-[250px]'>
             <TabsList className='grid grid-cols-2 rounded-3xl bg-neutral-200'>

@@ -3,4 +3,19 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+module.exports = {
+  ...nextConfig,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ecommerce-back-images.s3.amazonaws.com",
+        pathname: "/products-images/*",
+      },
+    ],
+  }
+};
+

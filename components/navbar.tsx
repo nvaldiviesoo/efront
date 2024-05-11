@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -80,7 +82,7 @@ const Navbar = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem className='flex w-[10rem] justify-end'>
-          Logo
+          <Image src={"/Logo.jpeg"} alt='Logo' width={100} height={100}/>
         </NavigationMenuItem>
       </NavigationMenuList>
       <NavigationMenuList className='w-[40rem] justify-end'>
