@@ -13,6 +13,7 @@ import { BsBag, IoPersonOutline, AiOutlineHeart } from '../utils/icons';
 import { cn } from '../components/ui/utils';
 import SearchBar from './searchBar';
 import { accesoriesTags, menTags, womenTags } from '../utils/navigation-tags';
+import Link from 'next/link';
 
 
 const ListItem = React.forwardRef<
@@ -82,7 +83,9 @@ const Navbar = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem className='flex w-[10rem] justify-end'>
-          <Image src={"/Logo.jpeg"} alt='Logo' width={100} height={100}/>
+          <Link href="/">
+            <Image src={"/Logo.jpeg"} alt='Logo' width={100} height={100}/>
+          </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
       <NavigationMenuList className='w-[40rem] justify-end'>
@@ -110,7 +113,7 @@ const Navbar = () => {
           <IoPersonOutline size={20} />
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <BsBag size={20} />
+          <BsBag size={20} className='cursor-pointer' />
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

@@ -7,7 +7,14 @@ export const productApi = createApi({
     getProducts: builder.query({
       query: (params) => '/get_products/',
     }),
+
+    getProductDetail: builder.query({
+      query: (id) => ({
+        url: '/get_product_by_id/',
+        params: id
+      })
+    })
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetProductDetailQuery } = productApi;
