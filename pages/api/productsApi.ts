@@ -11,7 +11,9 @@ export const productApi = createApi({
     getProductDetail: builder.query({
       query: (id) => ({
         url: '/get_product_by_id/',
-        params: id
+        params: {
+          id: id
+        }
       })
     })
   }),
