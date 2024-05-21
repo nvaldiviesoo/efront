@@ -8,7 +8,7 @@ import {
 } from '../components/ui/accordion';
 import { Checkbox } from '../components/ui/checkbox';
 
-const AccordionItemContent = ({ title }: {title: string}) => (
+const AccordionItemContent = ({ title }: { title: string }) => (
   <AccordionItem value={title.toLowerCase()}>
     <AccordionTrigger>{title}</AccordionTrigger>
     <AccordionContent>
@@ -47,8 +47,8 @@ const Product = () => {
       <ScrollArea className='ml-[2%] h-[35rem] w-56 rounded-md border border-none'>
         <div className='p-4'>
           <Accordion type='single' collapsible>
-            {accordionItems.map((item, index) => (
-              <AccordionItemContent key={index} title={item} />
+            {accordionItems.map((item) => (
+              <AccordionItemContent key={item} title={item} />
             ))}
           </Accordion>
         </div>

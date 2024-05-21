@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Layout from '../components/wrappers/Layout'
+import Layout from '../components/wrappers/Layout.1';
 import { useGetProductDetailQuery } from './api/productsApi';
 
 const ProductDetail = () => {

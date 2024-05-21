@@ -1,16 +1,7 @@
-import Navbar from '../navbar';
+import { Layout } from './Layout.1';
 
-type LayoutProps = {
+export type LayoutProps = {
   children: React.ReactNode;
-};
-
-const Layout = ({ children }: LayoutProps) => {
-  return (
-    <>
-      <Navbar />
-      {children}
-    </>
-  );
 };
 
 export default Layout;
