@@ -1,3 +1,45 @@
 {
-  "extends": ["next/core-web-vitals", "next", "prettier"]
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+    "airbnb",
+    "airbnb-typescript",
+    "prettier"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "prettier"
+  ],
+  "ignorePatterns": [
+    "**/*.js"
+  ],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unstable-nested-components": "off",
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": "off",
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "vitest/vitest-in-dependencies": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }
