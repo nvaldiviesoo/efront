@@ -94,10 +94,10 @@ const Navbar = () => {
           triggerText='Women'
           contentItems={womenTags}
         />
-        <NavigationMenuItemWithContent
+        {/* <NavigationMenuItemWithContent
           triggerText='Mens'
           contentItems={menTags}
-        />
+        /> */}
         <NavigationMenuItemWithContent
           triggerText='Accessories'
           contentItems={accesoriesTags}
