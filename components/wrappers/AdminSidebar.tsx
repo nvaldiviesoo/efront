@@ -5,6 +5,7 @@ import {
   LineChart,
   Package,
   Package2,
+  PackagePlus,
   ShoppingCart,
   Users,
 } from "lucide-react"
@@ -54,6 +55,13 @@ const AdminSidebar = ({ children }: LayoutProps) => (
             >
               <Package className="h-4 w-4" />
               Productos{" "}
+            </Link>
+            <Link
+              href="../admin/newproduct"
+              className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+            >
+              <PackagePlus className="h-4 w-4" />
+              Agregar Producto{" "}
             </Link>
             <Link
               href="../admin/users"
