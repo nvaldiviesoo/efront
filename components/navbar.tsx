@@ -16,6 +16,7 @@ import {
 import { BsBag, IoPersonOutline, AiOutlineHeart } from '../utils/icons';
 import { cn } from './ui/utils';
 import SearchBar from './searchBar';
+import ProfileDropDownMenu from './profile_dropdown_menu';
 import { accesoriesTags, womenTags } from '../utils/navigation-tags';
 import { ShopCart } from './cart';
 
@@ -124,7 +125,7 @@ const Navbar = () => {
             <AiOutlineHeart size={20} />
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <IoPersonOutline size={20} />
+            <ProfileDropDownMenu></ProfileDropDownMenu>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <BsBag
