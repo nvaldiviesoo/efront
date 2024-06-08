@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 
 import { Separator } from '@radix-ui/react-separator';
@@ -19,7 +18,7 @@ import {
 } from '../components/ui/form';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
-import { useEditUserMutation, useLoginMutation, useRegisterMutation } from './api/authApi';
+import { useDeleteUserMutation, useEditUserMutation } from './api/authApi';
 import { setIsAuthenticated, setUser } from '../redux/features/userSlice';
 import { IoPersonOutline } from '../utils/icons';
 
@@ -27,15 +26,15 @@ const editProfileSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   lastName: z.string().min(1, 'Name is required'),
   email: z.string().email(),
-  newPassword: z.string().min(8),
+  newPassword: z.string(),
   password: z.string().min(8),
 });
 
 const userMockUp = {
-    name: "Juanito",
-    lastname: "Perez",
-    email: "juanitop@gmail.com",
-    password: '',
+  name: 'Juanito',
+  lastname: 'Perez',
+  email: 'juanitop@gmail.com',
+  password: '',
 };
 
 const EditProfile = () => {
@@ -56,6 +55,8 @@ const EditProfile = () => {
   const [editUser, { isLoading: isEditUserLoading, data: editData }] =
     useEditUserMutation();
 
+  const [deleteUser] = useDeleteUserMutation();
+
   function onEditProfileSubmit(values: z.infer<typeof editProfileSchema>) {
     const registerData = {
       email: values.email,
@@ -71,6 +72,10 @@ const EditProfile = () => {
     router.push('/');
   }
 
+  function onDeleteProfile() {
+    deleteUser({});
+  }
+
   return (
     <div className='flex h-screen flex-row'>
       <Card className='w-1/2 text-center'>
@@ -82,89 +87,95 @@ const EditProfile = () => {
           <IoPersonOutline size={50} />
         </CardHeader>
         <CardContent>
-        <Form {...EditProfileForm}>
-                <form
-                  onSubmit={EditProfileForm.handleSubmit(onEditProfileSubmit)}
-                  className='space-y-6'
-                >
-                  <FormField
-                    control={EditProfileForm.control}
-                    name='name'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nombre</FormLabel>
-                        <FormControl>
-                          <Input placeholder='Ingresa tu nombre' {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={EditProfileForm.control}
-                    name='lastName'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Apellido</FormLabel>
-                        <FormControl>
-                          <Input placeholder='Ingresa tu apellido' {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={EditProfileForm.control}
-                    name='email'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email Address</FormLabel>
-                        <FormControl>
-                          <Input placeholder='Enter Email Address' {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={EditProfileForm.control}
-                    name='newPassword'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>New Password</FormLabel>
-                        <FormControl>
-                          <Input placeholder='********' {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={EditProfileForm.control}
-                    name='password'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder='Enter your Password'
-                            type='password'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button
-                    className='w-full rounded-3xl bg-black'
-                    type='submit'
-                    disabled={isEditUserLoading}
-                  >
-                    SAVE
-                  </Button>
-                </form>
-              </Form>
+          <Form {...EditProfileForm}>
+            <form
+              onSubmit={EditProfileForm.handleSubmit(onEditProfileSubmit)}
+              className='space-y-6'
+            >
+              <FormField
+                control={EditProfileForm.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Ingresa tu nombre' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={EditProfileForm.control}
+                name='lastName'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Apellido</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Ingresa tu apellido' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={EditProfileForm.control}
+                name='email'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email Address</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Enter Email Address' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={EditProfileForm.control}
+                name='newPassword'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder='********' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={EditProfileForm.control}
+                name='password'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder='Enter your Password'
+                        type='password'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                className='w-full rounded-3xl bg-black'
+                type='submit'
+                disabled={isEditUserLoading}
+              >
+                SAVE
+              </Button>
+              <Button
+                className='w-full rounded-3xl'
+                onClick={() => onDeleteProfile}
+              >
+                Delete
+              </Button>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>

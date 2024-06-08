@@ -33,7 +33,20 @@ export const authApi = createApi({
         };
       },
     }),
+    deleteUser: builder.mutation({
+      query() {
+        return {
+          url: 'delete/',
+          method: 'DELETE',
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useEditUserMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useEditUserMutation,
+  useDeleteUserMutation,
+} = authApi;
