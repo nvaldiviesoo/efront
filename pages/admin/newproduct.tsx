@@ -43,11 +43,11 @@ const FormSchema = z.object({
   name: z.string().min(5, {
     message: 'El nombre del producto debe tener al menos 5 caracteres',
   }),
-  price: z.string().min(5, {
-    message: 'El precio del producto debe ser mayor a cero',
+  price: z.number().int().min(1, {
+    message: 'El precio del producto debe ser un entero mayor a cero',
   }),
-  quantity: z.string().min(5, {
-    message: 'La cantidad del producto debe ser mayor a cero',
+  quantity: z.number().int().min(1, {
+    message: 'La cantidad del producto debe ser un entero mayor a cero',
   }),
   category: z.string().nonempty({
     message: 'Selecciona una categoría para el producto',
@@ -72,25 +72,53 @@ export default function NewProduct() {
     defaultValues: {
       name: '',
       description: '',
-      price: '',
+      price: 0,
       category: '',
       gender: '',
       size: '',
       color: '',
-      quantity: '',
+      quantity: 0,
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
     toast({
-      title: 'You submitted the following values:',
+      title: 'Se manda el siguiente JSON:',
       description: (
         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
     });
+    // Se manda a localhost:8000/api/products
+    // fetch('http://localhost:8000/api/products', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     toast({
+    //       title: 'Respuesta del servidor:',
+    //       description: (
+    //         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+    //           <code className='text-white'>{JSON.stringify(json, null, 2)}</code>
+    //         </pre>
+    //       ),
+    //     });
+    //   })
+    // .catch((error) => {
+    //   toast({
+    //       title: 'Respuesta del servidor:',
+    //       description: (
+    //         <pre className='mt-2 w-[340px] rounded-md bg-slate-9
+    //           <code className='text-white'>{JSON.stringify(json,
+    //         </pre>
+    //       ),
+    //     });
+    //   });
   }
 
   return (
@@ -156,6 +184,11 @@ export default function NewProduct() {
                                       placeholder='Precio'
                                       {...field}
                                       type='number'
+                                      onChange={(event) =>
+                                        field.onChange(
+                                          Number(event.target.value)
+                                        )
+                                      }
                                     />
                                   </FormControl>
                                   <FormMessage />
@@ -175,6 +208,11 @@ export default function NewProduct() {
                                       placeholder='Cantidad'
                                       {...field}
                                       type='number'
+                                      onChange={(event) =>
+                                        field.onChange(
+                                          Number(event.target.value)
+                                        )
+                                      }
                                     />
                                   </FormControl>
                                   <FormMessage />
