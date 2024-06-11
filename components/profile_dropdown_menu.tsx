@@ -20,8 +20,6 @@ const ProfileDropDownMenu = () => {
     }) => store.auth
   );
 
-  auth.isAuthenticated = false;
-
   return (
     <div className='grid grid-cols-2 gap-2'>
       {auth.isAuthenticated ? (
