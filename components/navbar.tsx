@@ -16,6 +16,7 @@ import {
 import { BsBag, IoPersonOutline, AiOutlineHeart, IoBarChartOutline } from '../utils/icons';
 import { cn } from './ui/utils';
 import SearchBar from './searchBar';
+import ProfileDropDownMenu from './profile_dropdown_menu';
 import { accesoriesTags, womenTags } from '../utils/navigation-tags';
 import { ShopCart } from './cart';
 
@@ -82,7 +83,9 @@ const NavigationMenuItemWithContent = ({
 
 const Navbar = () => {
   // TODO: search why is needed the cartItemCount
-  const { cartItems } = useSelector((state) => state.shopCart);
+  const { cartItems } = useSelector(
+    (state: { shopCart: any }) => state.shopCart
+  );
   const [input, setInput] = useState('');
   const [isOpenCart, setIsOpenCart] = useState(false);
 
@@ -102,7 +105,7 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuList className='w-[40rem] justify-end'>
+        <NavigationMenuList className='justify-end'>
           <NavigationMenuItemWithContent
             triggerText='Women'
             contentItems={womenTags}
@@ -124,7 +127,7 @@ const Navbar = () => {
             <AiOutlineHeart size={20} />
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <IoPersonOutline size={20} />
+            <ProfileDropDownMenu />
           </NavigationMenuItem>
           <NavigationMenuItem>
             <BsBag
