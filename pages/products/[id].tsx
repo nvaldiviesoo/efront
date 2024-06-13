@@ -21,7 +21,6 @@ import { Drawer, DrawerType } from '../../components/drawer';
 const ProductDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-
   const [descriptionDrawerOpen, setDescriptionDrawerOpen] = useState(false);
   const [deliveryDrawerOpen, setDeliveryOpen] = useState(false);
   const [sizesGuideDrawerOpen, setSizesGuideDrawerOpen] = useState(false);
@@ -35,13 +34,13 @@ const ProductDetail = () => {
       price: data.price,
       image: data.image,
       size: selectedSize,
+      quantity: 1,
 
       // TO DO add stock and quantity
     };
     dispatch(setCartItem(cartItem));
   };
   // TODO MAKE DIFFERENT COMPONENTS -> IMAGES, INFO PRODUCT, SIZES, REVIEWS
-
   return (
     <Layout>
       {!isLoading && (
@@ -49,7 +48,7 @@ const ProductDetail = () => {
           <div className='flex flex-row'>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image}
+                src={data.image ? data.image : '/product-image-placeholder.png'}
                 sizes='50vw'
                 alt='Product'
                 quality={100}
@@ -58,7 +57,7 @@ const ProductDetail = () => {
             </div>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image}
+                src={data.image ? data.image : '/product-image-placeholder.png'}
                 sizes='50vw'
                 alt='Product'
                 quality={100}
