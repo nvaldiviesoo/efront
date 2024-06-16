@@ -13,30 +13,31 @@ import Layout from '../../components/wrappers/Layout';
 import { Button } from '../../components/ui/button';
 import { setCartItem } from '../../redux/features/shopCartSlice';
 
-import { useGetProductDetailQuery } from '../api/productsApi';
+import { useGetAllProductByIDQuery, useGetProductDetailQuery } from '../api/productsApi';
 import { SizeSelector } from '../../components/sizeSelector';
 import { Separator } from '../../components/ui/separator';
 import { Drawer, DrawerType } from '../../components/drawer';
 
 const ProductDetail = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const { id } = router.query;
   const [descriptionDrawerOpen, setDescriptionDrawerOpen] = useState(false);
   const [deliveryDrawerOpen, setDeliveryOpen] = useState(false);
   const [sizesGuideDrawerOpen, setSizesGuideDrawerOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
-  const { data, isLoading } = useGetProductDetailQuery(id);
-  const dispatch = useDispatch();
+  const { data, isLoading } = useGetAllProductByIDQuery(id);
+  if (isLoading) return <div>Loading...</div>;
+  const { data: productDetail, quantity, ids } = data;
   const setItemToCart = () => {
     const cartItem = {
-      product: data.id,
-      name: data.name,
-      price: data.price,
-      image: data.image,
+      product: ids[selectedSize],
+      name: productDetail.name,
+      price: productDetail.price,
+      image: productDetail.image,
       size: selectedSize,
       quantity: 1,
-
-      // TO DO add stock and quantity
     };
     dispatch(setCartItem(cartItem));
   };
@@ -48,7 +49,11 @@ const ProductDetail = () => {
           <div className='flex flex-row'>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image ? data.image : '/product-image-placeholder.png'}
+                src={
+                  productDetail.image
+                    ? productDetail.image
+                    : '/product-image-placeholder.png'
+                }
                 sizes='50vw'
                 alt='Product'
                 quality={100}
@@ -57,7 +62,11 @@ const ProductDetail = () => {
             </div>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image ? data.image : '/product-image-placeholder.png'}
+                src={
+                  productDetail.image
+                    ? productDetail.image
+                    : '/product-image-placeholder.png'
+                }
                 sizes='50vw'
                 alt='Product'
                 quality={100}
@@ -68,12 +77,14 @@ const ProductDetail = () => {
           <div className='flex justify-center'>
             <div className='mt-10 flex flex-col items-center'>
               <h1 className='text-[0.9rem] font-bold'>
-                {data.name.toUpperCase()}
+                {productDetail.name.toUpperCase()}
               </h1>
               <h2 className='text-[0.5rem] text-slate-400'>
-                {data.description.toUpperCase()}
+                {productDetail.description.toUpperCase()}
               </h2>
-              <p className='text-[0.6rem] font-bold'>CLP${data.price}</p>
+              <p className='text-[0.6rem] font-bold'>
+                CLP${productDetail.price}
+              </p>
               <div className='flex flex-row gap-x-10 py-8'>
                 <FaRegHeart className='cursor-pointer' />
                 <FaRegCopy
@@ -85,6 +96,7 @@ const ProductDetail = () => {
                 isOpen={sizesGuideDrawerOpen}
                 setIsOpen={setSizesGuideDrawerOpen}
                 setSize={setSelectedSize}
+                productSizes={quantity}
               />
               <Button
                 onClick={setItemToCart}
