@@ -51,7 +51,11 @@ export function ShopCart({
                   <div key={item.id} className='flex flex-col gap-y-4'>
                     <div className='flex h-full flex-row gap-x-2'>
                       <Image
-                        src={item.image}
+                        src={
+                          item.image
+                            ? item.image
+                            : '/product-image-placeholder.png'
+                        }
                         alt={`product ${item.id}`}
                         width={100}
                         height={100}

@@ -22,7 +22,11 @@ export function CarouselPlugin({ products }: { products: any }) {
               <Card className='cursor-pointer rounded-none border-none'>
                 <CardContent className='flex min-h-[30rem] px-0'>
                   <Image
-                    src={product.image}
+                    src={
+                      product.image
+                        ? product.image
+                        : '/product-image-placeholder.png'
+                    }
                     alt='product'
                     height={150}
                     width={300}

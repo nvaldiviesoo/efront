@@ -18,6 +18,7 @@ import {
 } from '../../components/ui/table';
 
 import users from '../../public/admin_json_example/users_example.json';
+import { Switch } from '../../components/ui/switch';
 
 export default function Users() {
   return (
@@ -26,9 +27,6 @@ export default function Users() {
         <AdminSidebar>
           <div className='flex flex-col'>
             <main className='flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
-              <div className='flex items-center'>
-                <h1 className='text-lg font-semibold md:text-2xl'>Usuarios</h1>
-              </div>
               <Card>
                 <CardHeader className='px-7'>
                   <CardTitle>Usuarios</CardTitle>
@@ -45,10 +43,10 @@ export default function Users() {
                           E-mail
                         </TableHead>
                         <TableHead className='hidden sm:table-cell'>
-                          Estado
+                          Saldo disponible
                         </TableHead>
                         <TableHead className='text-right'>
-                          Saldo disponible
+                          Activar/Desactivar Cuenta
                         </TableHead>
                       </TableRow>
                     </TableHeader>
@@ -63,11 +61,11 @@ export default function Users() {
                           </TableCell>
                           <TableCell className='hidden sm:table-cell'>
                             <Badge className='text-xs' variant='secondary'>
-                              {user.Status}
+                              ${user.Balance}
                             </Badge>
                           </TableCell>
                           <TableCell className='text-right'>
-                            ${user.Balance}
+                            <Switch />
                           </TableCell>
                         </TableRow>
                       ))}

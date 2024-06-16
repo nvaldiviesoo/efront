@@ -49,7 +49,7 @@ const ProductDetail = () => {
           <div className='flex flex-row'>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image}
+                src={data.image ? data.image : '/product-image-placeholder.png'}
                 sizes='50vw'
                 alt='Product'
                 quality={100}
@@ -58,7 +58,7 @@ const ProductDetail = () => {
             </div>
             <div className='relative ml-10 h-[40rem] w-[25rem]'>
               <Image
-                src={data.image}
+                src={data.image ? data.image : '/product-image-placeholder.png'}
                 sizes='50vw'
                 alt='Product'
                 quality={100}

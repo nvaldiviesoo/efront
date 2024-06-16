@@ -1,3 +1,4 @@
+import { MoreHorizontal } from 'lucide-react';
 import Layout from '../../components/wrappers/Layout';
 import AdminSidebar from '../../components/wrappers/AdminSidebar';
 import { Badge } from '../../components/ui/badge';
@@ -16,9 +17,16 @@ import {
   TableHeader,
   TableRow,
 } from '../../components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu';
 
 // Se prueba con el json público orders_example.json
 import orders from '../../public/admin_json_example/orders_example.json';
+import { Button } from '../../components/ui/button';
 
 export default function Orders() {
   return (
@@ -27,29 +35,26 @@ export default function Orders() {
         <AdminSidebar>
           <div className='flex flex-col'>
             <main className='flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6'>
-              <div className='flex items-center'>
-                <h1 className='text-lg font-semibold md:text-2xl'>Órdenes</h1>
-              </div>
               <Card>
                 <CardHeader className='px-7'>
-                  <CardTitle>Pedidos</CardTitle>
+                  <CardTitle>Órdenes</CardTitle>
                   <CardDescription>Compras recientes</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Cliente</TableHead>
-                        <TableHead className='hidden sm:table-cell'>
-                          Tipo de Pedido
-                        </TableHead>
+                        <TableHead>Nombre Cliente</TableHead>
                         <TableHead className='hidden sm:table-cell'>
                           Estado
                         </TableHead>
                         <TableHead className='hidden md:table-cell'>
                           Fecha
                         </TableHead>
-                        <TableHead className='text-right'>Monto</TableHead>
+                        <TableHead className='hidden md:table-cell'>
+                          Monto
+                        </TableHead>
+                        <TableHead className='text-right' />
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -62,9 +67,6 @@ export default function Orders() {
                             </div>
                           </TableCell>
                           <TableCell className='hidden sm:table-cell'>
-                            {order.Type}
-                          </TableCell>
-                          <TableCell className='hidden sm:table-cell'>
                             <Badge className='text-xs' variant='secondary'>
                               {order.Status}
                             </Badge>
@@ -72,8 +74,30 @@ export default function Orders() {
                           <TableCell className='hidden md:table-cell'>
                             {order.Date}
                           </TableCell>
-                          <TableCell className='text-right'>
+                          <TableCell className='hidden md:table-cell'>
                             ${order.Amount}
+                          </TableCell>
+                          <TableCell className='text-right'>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button
+                                  aria-haspopup='true'
+                                  size='icon'
+                                  variant='ghost'
+                                >
+                                  <MoreHorizontal className='h-4 w-4' />
+                                  <span className='sr-only'>Toggle menu</span>
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align='end'>
+                                <DropdownMenuItem>
+                                  Marcar orden como completada
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  Ver Detalles
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </TableCell>
                         </TableRow>
                       ))}

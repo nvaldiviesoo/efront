@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import Layout from '../../components/wrappers/Layout';
 import { Button } from '../../components/ui/button';
+import { useCreateProductMutation } from '../api/productsApi';
 import {
   Card,
   CardContent,
@@ -67,6 +69,9 @@ const FormSchema = z.object({
 });
 
 export default function NewProduct() {
+  const [createProduct] = useCreateProductMutation();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -82,43 +87,21 @@ export default function NewProduct() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: 'Se manda el siguiente JSON:',
-      description: (
-        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-    // Se manda a localhost:8000/api/products
-    // fetch('http://localhost:8000/api/products', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     toast({
-    //       title: 'Respuesta del servidor:',
-    //       description: (
-    //         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
-    //           <code className='text-white'>{JSON.stringify(json, null, 2)}</code>
-    //         </pre>
-    //       ),
-    //     });
-    //   })
-    // .catch((error) => {
-    //   toast({
-    //       title: 'Respuesta del servidor:',
-    //       description: (
-    //         <pre className='mt-2 w-[340px] rounded-md bg-slate-9
-    //           <code className='text-white'>{JSON.stringify(json,
-    //         </pre>
-    //       ),
-    //     });
-    //   });
+    createProduct(data)
+      .unwrap()
+      .then(() => {
+        toast({
+          title: 'Producto creado con éxito',
+          description: `El producto ha sido creado exitosamente`,
+        });
+        router.push('../admin/products');
+      })
+      .catch((error) => {
+        toast({
+          title: 'Error',
+          description: `Error al crear el producto: ${error.message}`,
+        });
+      });
   }
 
   return (
