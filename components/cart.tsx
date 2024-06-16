@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsTrash3 } from 'react-icons/bs';
 
@@ -82,9 +83,11 @@ export function ShopCart({
                   </div>
                 ))}
               </div>
-              <Button className='w-full self-end text-xs'>
-                Go to checkout
-              </Button>
+              <Link href='/checkout'>
+                <Button className='w-full self-end text-xs'>
+                  Go to checkout
+                </Button>
+              </Link>
             </SheetDescription>
           ) : (
             <SheetDescription className='flex h-[80%] flex-col items-center justify-center gap-x-4 gap-y-10'>

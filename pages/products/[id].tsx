@@ -21,7 +21,6 @@ import { Drawer, DrawerType } from '../../components/drawer';
 const ProductDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-
   const [descriptionDrawerOpen, setDescriptionDrawerOpen] = useState(false);
   const [deliveryDrawerOpen, setDeliveryOpen] = useState(false);
   const [sizesGuideDrawerOpen, setSizesGuideDrawerOpen] = useState(false);
@@ -35,13 +34,13 @@ const ProductDetail = () => {
       price: data.price,
       image: data.image,
       size: selectedSize,
+      quantity: 1,
 
       // TO DO add stock and quantity
     };
     dispatch(setCartItem(cartItem));
   };
   // TODO MAKE DIFFERENT COMPONENTS -> IMAGES, INFO PRODUCT, SIZES, REVIEWS
-
   return (
     <Layout>
       {!isLoading && (
