@@ -25,13 +25,15 @@ export const authApi = createApi({
       },
     }),
     editUser: builder.mutation({
-      query(body) {
-        return {
-          url: 'edit/',
-          method: 'PATCH',
-          body,
-        };
-      },
+      query: ({ body, key }) => ({
+        url: 'edit_profile/',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${key}`,
+        },
+        body,
+      }),
     }),
     deleteUser: builder.mutation({
       query() {

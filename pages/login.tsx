@@ -76,7 +76,7 @@ const Login = () => {
     login(loginData);
   }
   if (data) {
-    dispatch(setUser(data.data.user));
+    dispatch(setUser(data.data));
     dispatch(setIsAuthenticated(true));
     router.push('/');
   }

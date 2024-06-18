@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Separator } from '@radix-ui/react-separator';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,30 +25,28 @@ import { IoPersonOutline } from '../utils/icons';
 const editProfileSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   lastName: z.string().min(1, 'Name is required'),
-  email: z.string().email(),
-  newPassword: z.string(),
-  password: z.string().min(8),
+  email: z.string().min(1, 'Name is required'),
 });
-
-const userMockUp = {
-  name: 'Juanito',
-  lastname: 'Perez',
-  email: 'juanitop@gmail.com',
-  password: '',
-};
 
 const EditProfile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const auth = useSelector(
+    (store: {
+      auth: {
+        user: null | { access: string; user: { username: string } };
+        isAuthenticated: boolean;
+      };
+    }) => store.auth
+  );
+
   const EditProfileForm = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
-      name: userMockUp.name,
-      lastName: userMockUp.lastname,
-      email: userMockUp.email,
-      newPassword: '',
-      password: '',
+      name: '',
+      lastName: '',
+      email: '',
     },
   });
 
@@ -59,15 +57,15 @@ const EditProfile = () => {
 
   function onEditProfileSubmit(values: z.infer<typeof editProfileSchema>) {
     const registerData = {
-      email: values.email,
-      name: values.name + values.lastName,
-      newPassword: values.newPassword,
-      password: values.password,
+      body: {
+        name: `${values.name} ${values.lastName}`,
+      },
+      key: auth.user?.access,
     };
     editUser(registerData);
   }
   if (editData) {
-    dispatch(setUser(editData.data.user));
+    setUser(editData.data.user);
     dispatch(setIsAuthenticated(true));
     router.push('/');
   }
@@ -125,37 +123,7 @@ const EditProfile = () => {
                   <FormItem>
                     <FormLabel>Email Address</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter Email Address' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={EditProfileForm.control}
-                name='newPassword'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <Input placeholder='********' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={EditProfileForm.control}
-                name='password'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder='Enter your Password'
-                        type='password'
-                        {...field}
-                      />
+                      <Input placeholder='Ingresa tu correo' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,6 +135,13 @@ const EditProfile = () => {
                 disabled={isEditUserLoading}
               >
                 SAVE
+              </Button>
+              <Button
+                className='w-full rounded-3xl bg-black'
+                disabled={isEditUserLoading}
+                onClick={() => router.push('/')}
+              >
+                RETURN
               </Button>
               <Button
                 className='w-full rounded-3xl'
