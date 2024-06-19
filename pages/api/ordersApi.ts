@@ -5,7 +5,7 @@ export const ordersApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8000/api/v1',
     prepareHeaders: (headers) => {
-      //TO DO get token from local storage
+      // TO DO get token from local storage
       const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NDQxNjUwLCJqdGkiOiJjYTQ3YmRjYTJkNzI0ODYzOWE0OTAxNWNkODU0YjY3YyIsInVzZXJfaWQiOiI5NTZjMGI2OS0yMmZjLTQ2ZDQtYTQ1Mi0zOTZiZDExNDMwY2IifQ.IYpZjcsAVHIHvLl-w6coUqUdPdvdJ3YXLon6hkVFI-M';
       if (token) {
