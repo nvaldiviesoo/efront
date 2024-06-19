@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Layout from '../../components/wrappers/Layout';
 import AdminSidebar from '../../components/wrappers/AdminSidebar';
 import { Badge } from '../../components/ui/badge';
@@ -17,71 +18,47 @@ import {
   TableRow,
 } from '../../components/ui/table';
 
-import { Switch } from '../../components/ui/switch';
+import { useGetUsersQuery, useUpdateUserMutation } from '../api/usersApi';
+import { toast } from '../../components/ui/use-toast';
+import { Button } from '../../components/ui/button';
 
 export default function Users() {
-  const users = [
-    {
-      Name: 'Juan Pérez',
-      Email: 'juan.perez@example.com',
-      Status: 'Activo',
-      Balance: 150075,
-    },
-    {
-      Name: 'María López',
-      Email: 'maria.lopez@example.com',
-      Status: 'Inactivo',
-      Balance: 275050,
-    },
-    {
-      Name: 'Carlos García',
-      Email: 'carlos.garcia@example.com',
-      Status: 'Activo',
-      Balance: 12500,
-    },
-    {
-      Name: 'Ana Martínez',
-      Email: 'ana.martinez@example.com',
-      Status: 'Activo',
-      Balance: 320020,
-    },
-    {
-      Name: 'Luis Rodríguez',
-      Email: 'luis.rodriguez@example.com',
-      Status: 'Activo',
-      Balance: 5000,
-    },
-    {
-      Name: 'Carmen Sánchez',
-      Email: 'carmen.sanchez@example.com',
-      Status: 'Activo',
-      Balance: 74580,
-    },
-    {
-      Name: 'Miguel Fernández',
-      Email: 'miguel.fernandez@example.com',
-      Status: 'Activo',
-      Balance: 43000,
-    },
-    {
-      Name: 'Elena Gómez',
-      Email: 'elena.gomez@example.com',
-      Status: 'Inactivo',
-      Balance: 120050,
-    },
-    {
-      Name: 'Sofía Díaz',
-      Email: 'sofia.diaz@example.com',
-      Status: 'Activo',
-      Balance: 98025,
-    },
-    {
-      Name: 'Pedro Torres',
-      Email: 'pedro.torres@example.com',
-      Status: 'Activo',
-      Balance: 210000,
-    },
-  ];
+  const { data, isLoading } = useGetUsersQuery('');
+  const [updateUser] = useUpdateUserMutation();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setUsers(data.data);
+    }
+  }, [data]);
+
+  const handleStaffChange = async (user_id, is_staff) => {
+    const body = { id: user_id, is_staff: !is_staff };
+    try {
+      await updateUser(body).unwrap();
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === user_id ? { ...user, is_staff: !is_staff } : user
+        )
+      );
+      toast({
+        title: !is_staff
+          ? 'El usuario ahora es staff'
+          : 'El usuario ya no es staff',
+        description: 'Cambio realizado exitosamente',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: `Error al realizar el cambio: ${error.message}`,
+      });
+    }
+  };
+
+  if (isLoading) {
+    return <div className='flex justify-center'>Loading...</div>;
+  }
   return (
     <Layout>
       <div className='grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]'>
@@ -107,7 +84,7 @@ export default function Users() {
                           Saldo disponible
                         </TableHead>
                         <TableHead className='text-right'>
-                          Activar/Desactivar Cuenta
+                          Acticar/Desactivar Staff
                         </TableHead>
                       </TableRow>
                     </TableHeader>
@@ -115,18 +92,29 @@ export default function Users() {
                       {users.map((user) => (
                         <TableRow className='bg-accent'>
                           <TableCell>
-                            <div className='font-medium'>{user.Name}</div>
+                            <div className='font-medium'>{user.name}</div>
                           </TableCell>
                           <TableCell className='hidden sm:table-cell'>
-                            {user.Email}
+                            {user.email}
                           </TableCell>
                           <TableCell className='hidden sm:table-cell'>
                             <Badge className='text-xs' variant='secondary'>
-                              ${user.Balance}
+                              ${user.balance}
                             </Badge>
                           </TableCell>
                           <TableCell className='text-right'>
-                            <Switch />
+                            <Button
+                              className={
+                                user.is_staff
+                                  ? 'bg-black text-slate-100'
+                                  : 'bg-slate-100 text-black'
+                              }
+                              onClick={() => {
+                                handleStaffChange(user.id, user.is_staff);
+                              }}
+                            >
+                              {user.is_staff ? 'Desactivar' : 'Activar'}
+                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
