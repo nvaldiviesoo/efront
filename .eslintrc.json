@@ -20,7 +20,8 @@
     "prettier"
   ],
   "ignorePatterns": [
-    "**/*.js"
+    "**/*.js",
+    "**/*.json"
   ],
   "rules": {
     "prettier/prettier": ["error"],
