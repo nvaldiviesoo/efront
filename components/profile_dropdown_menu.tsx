@@ -14,7 +14,10 @@ const ProfileDropDownMenu = () => {
   const auth = useSelector(
     (store: {
       auth: {
-        user: null;
+        user: null | {
+          access: string;
+          user: { username: string; email: string };
+        };
         isAuthenticated: boolean;
       };
     }) => store.auth
@@ -22,7 +25,7 @@ const ProfileDropDownMenu = () => {
 
   return (
     <div className='grid grid-cols-2 gap-2'>
-      {auth.isAuthenticated ? (
+      {auth.user ? (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <IoPersonOutline size={20} />
@@ -39,8 +42,10 @@ const ProfileDropDownMenu = () => {
                 <IoPersonOutline size={60} />
               </DropdownMenuLabel>
             </div>
+            <DropdownMenuLabel>{auth.user.user.email}</DropdownMenuLabel>
+            <DropdownMenuLabel>{auth.user.user.username}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link href='/login'>
+            <Link href='/profile'>
               <DropdownMenuItem>Edit</DropdownMenuItem>
             </Link>
           </DropdownMenuContent>
