@@ -58,6 +58,7 @@ const FormSchema = z.object({
 });
 
 export default function Checkout() {
+  const [orderFinished, setOrderFinished] = useState(false);
   const { cartItems } = useSelector((state) => state.shopCart);
   const [createOrder] = useCreateOrderMutation();
   const [cart, setCart] = useState([]);
@@ -87,11 +88,11 @@ export default function Checkout() {
     data.cart = cart;
     createOrder(data)
       .unwrap()
-      .then((result) => {
+      .then(() => {
         toast({
-          title: 'Order created successfully',
-          description: JSON.stringify(result),
+          title: 'Orden creada exitosamente',
         });
+        setOrderFinished(true);
       })
       .catch(() => {
         toast({
@@ -114,9 +115,11 @@ export default function Checkout() {
   function processCartData() {
     const cartItemsCopy = [...cartItems];
     const cartData = cartItemsCopy.map((item) => ({
+      id: item.product,
       name: item.name,
       size: item.size,
       quantity: item.quantity,
+      color: '',
     }));
     setCart(cartData);
   }
@@ -155,6 +158,35 @@ export default function Checkout() {
                 <Button className='w-full'>
                   <Link href='/'>
                     <Button className='w-full self-end'>Ir a la tienda</Button>
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (orderFinished) {
+    return (
+      <Layout>
+        <div className='flex h-full items-center justify-center'>
+          <div className='m-10 flex w-1/2 flex-col items-center'>
+            <Card className='w-full'>
+              <CardHeader>
+                <CardTitle>¡Orden creada exitosamente!</CardTitle>
+                <CardDescription>
+                  Tu orden ha sido creada exitosamente y ahora estamos
+                  trabajando para que te llegue lo antes posible.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button className='w-full'>
+                  <Link href='/'>
+                    <Button className='w-full self-end'>
+                      Seguir Comprando
+                    </Button>
                   </Link>
                 </Button>
               </CardFooter>
