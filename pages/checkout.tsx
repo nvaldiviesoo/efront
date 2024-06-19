@@ -93,7 +93,7 @@ export default function Checkout() {
           description: JSON.stringify(result),
         });
       })
-      .catch((error) => {
+      .catch(() => {
         toast({
           title: 'Error',
           description: 'Failed to create order',

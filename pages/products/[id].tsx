@@ -13,7 +13,7 @@ import Layout from '../../components/wrappers/Layout';
 import { Button } from '../../components/ui/button';
 import { setCartItem } from '../../redux/features/shopCartSlice';
 
-import { useGetAllProductByIDQuery, useGetProductDetailQuery } from '../api/productsApi';
+import { useGetAllProductByIDQuery } from '../api/productsApi';
 import { SizeSelector } from '../../components/sizeSelector';
 import { Separator } from '../../components/ui/separator';
 import { Drawer, DrawerType } from '../../components/drawer';
