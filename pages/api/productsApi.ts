@@ -35,7 +35,31 @@ export const productApi = createApi({
           'Content-Type': 'application/json',
           Authorization:
             // TODO: Change this to a real token
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NDQxNjUwLCJqdGkiOiJjYTQ3YmRjYTJkNzI0ODYzOWE0OTAxNWNkODU0YjY3YyIsInVzZXJfaWQiOiI5NTZjMGI2OS0yMmZjLTQ2ZDQtYTQ1Mi0zOTZiZDExNDMwY2IifQ.IYpZjcsAVHIHvLl-w6coUqUdPdvdJ3YXLon6hkVFI-M',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU3MzQ1LCJqdGkiOiI0NzQyOGI5NTNhMTU0MzRiODU4YjE3YjcxNDYwMWUyZiIsInVzZXJfaWQiOiI2MDRkMDNkNy0xYmVjLTQ5NjUtODA2OS03ZjRkZTMxYjM1NjIifQ.qVn0_Xp_rzXh5MusCWOgDkx_Rfx0sn3gg-chVeemEMo',
+        },
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/delete_product_by_id/?id=${id}`,
+        method: 'DELETE',
+        headers: {
+          Authorization:
+            // TODO: Change this to a real token
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU3MzQ1LCJqdGkiOiI0NzQyOGI5NTNhMTU0MzRiODU4YjE3YjcxNDYwMWUyZiIsInVzZXJfaWQiOiI2MDRkMDNkNy0xYmVjLTQ5NjUtODA2OS03ZjRkZTMxYjM1NjIifQ.qVn0_Xp_rzXh5MusCWOgDkx_Rfx0sn3gg-chVeemEMo',
+        },
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: (product) => ({
+        url: '/stock_update/',
+        method: 'PUT',
+        body: product,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:
+            // TODO: Change this to a real token
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU3MzQ1LCJqdGkiOiI0NzQyOGI5NTNhMTU0MzRiODU4YjE3YjcxNDYwMWUyZiIsInVzZXJfaWQiOiI2MDRkMDNkNy0xYmVjLTQ5NjUtODA2OS03ZjRkZTMxYjM1NjIifQ.qVn0_Xp_rzXh5MusCWOgDkx_Rfx0sn3gg-chVeemEMo',
         },
       }),
     }),
@@ -47,4 +71,6 @@ export const {
   useGetProductDetailQuery,
   useGetAllProductByIDQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productApi;
