@@ -14,7 +14,7 @@ export const userApi = createApi({
           'Content-Type': 'application/json',
           Authorization:
             // TODO: Change this to a real token
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU0OTk0LCJqdGkiOiJlNmVhNjc4NWJlZjg0NTMxODI0NThjZmQ3MjczYTZiYyIsInVzZXJfaWQiOiIwNmIyYmY5My0xZmVlLTQ1ODctODdmOC1kMjk4Y2U1Yjc1MzEifQ.ZoF-g6D8Vcv3Ioc1udK4JjeR6_krWOy1uq2BSQnlxSs',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU3MzQ1LCJqdGkiOiI0NzQyOGI5NTNhMTU0MzRiODU4YjE3YjcxNDYwMWUyZiIsInVzZXJfaWQiOiI2MDRkMDNkNy0xYmVjLTQ5NjUtODA2OS03ZjRkZTMxYjM1NjIifQ.qVn0_Xp_rzXh5MusCWOgDkx_Rfx0sn3gg-chVeemEMo',
         },
       }),
     }),
@@ -28,7 +28,7 @@ export const userApi = createApi({
           'Content-Type': 'application/json',
           Authorization:
             // TODO: Change this to a real token
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU0OTk0LCJqdGkiOiJlNmVhNjc4NWJlZjg0NTMxODI0NThjZmQ3MjczYTZiYyIsInVzZXJfaWQiOiIwNmIyYmY5My0xZmVlLTQ1ODctODdmOC1kMjk4Y2U1Yjc1MzEifQ.ZoF-g6D8Vcv3Ioc1udK4JjeR6_krWOy1uq2BSQnlxSs',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMDU3MzQ1LCJqdGkiOiI0NzQyOGI5NTNhMTU0MzRiODU4YjE3YjcxNDYwMWUyZiIsInVzZXJfaWQiOiI2MDRkMDNkNy0xYmVjLTQ5NjUtODA2OS03ZjRkZTMxYjM1NjIifQ.qVn0_Xp_rzXh5MusCWOgDkx_Rfx0sn3gg-chVeemEMo',
         },
       }),
     }),
