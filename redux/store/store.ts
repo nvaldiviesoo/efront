@@ -6,6 +6,7 @@ import userReducer from '../features/userSlice';
 import { ordersApi } from '../../pages/api/ordersApi';
 import { productApi } from '../../pages/api/productsApi';
 import { authApi } from '../../pages/api/authApi';
+import { userApi } from '../../pages/api/usersApi';
 
 export const store = configureStore({
   reducer: {
@@ -14,11 +15,13 @@ export const store = configureStore({
     [ordersApi.reducerPath]: ordersApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
       ordersApi.middleware,
       productApi.middleware,
       authApi.middleware,
+      userApi.middleware,
     ]),
 });
