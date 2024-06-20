@@ -24,8 +24,6 @@ import { IoPersonOutline } from '../utils/icons';
 
 const editProfileSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  lastName: z.string().min(1, 'Name is required'),
-  email: z.string().min(1, 'Name is required'),
 });
 
 const EditProfile = () => {
@@ -35,7 +33,10 @@ const EditProfile = () => {
   const auth = useSelector(
     (store: {
       auth: {
-        user: null | { access: string; user: { username: string } };
+        user: null | {
+          access: string;
+          user: { username: string; email: string };
+        };
         isAuthenticated: boolean;
       };
     }) => store.auth
@@ -44,9 +45,7 @@ const EditProfile = () => {
   const EditProfileForm = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
-      name: '',
-      lastName: '',
-      email: '',
+      name: auth.user?.user.username,
     },
   });
 
@@ -58,7 +57,7 @@ const EditProfile = () => {
   function onEditProfileSubmit(values: z.infer<typeof editProfileSchema>) {
     const registerData = {
       body: {
-        name: `${values.name} ${values.lastName}`,
+        name: values.name,
       },
       key: auth.user?.access,
     };
@@ -103,32 +102,6 @@ const EditProfile = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={EditProfileForm.control}
-                name='lastName'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Apellido</FormLabel>
-                    <FormControl>
-                      <Input placeholder='Ingresa tu apellido' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={EditProfileForm.control}
-                name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address</FormLabel>
-                    <FormControl>
-                      <Input placeholder='Ingresa tu correo' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <Button
                 className='w-full rounded-3xl bg-black'
                 type='submit'
@@ -144,7 +117,7 @@ const EditProfile = () => {
                 RETURN
               </Button>
               <Button
-                className='w-full rounded-3xl'
+                className='invisible w-full rounded-3xl'
                 onClick={() => onDeleteProfile}
               >
                 Delete
