@@ -428,8 +428,9 @@ export default function NewProduct() {
                     </CardHeader>
                     <CardContent className='space-y-2 p-6'>
                       <div className='space-y-1'>
-                        <Label htmlFor='username'>Seleccionar un archivo</Label>
-                        <Input id='massivefile' type='file' />
+                        <Label htmlFor='username'>
+                          Haz click en el botón para generar una carga Masiva
+                        </Label>
                       </div>
                     </CardContent>
                     <CardFooter>
