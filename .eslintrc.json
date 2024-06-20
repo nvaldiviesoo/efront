@@ -20,7 +20,8 @@
     "prettier"
   ],
   "ignorePatterns": [
-    "**/*.js"
+    "**/*.js",
+    "**/*.json"
   ],
   "rules": {
     "prettier/prettier": ["error"],
@@ -31,7 +32,8 @@
     "import/prefer-default-export": "off",
     "react/function-component-definition": "off",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
-    "vitest/vitest-in-dependencies": "off"
+    "vitest/vitest-in-dependencies": "off",
+    "react-hooks/exhaustive-deps": "off"
   },
   "env": {
     "browser": true,
