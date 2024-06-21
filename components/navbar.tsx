@@ -109,7 +109,7 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuList className='m-5 justify-end gap-20'>
+        <NavigationMenuList className='m-5 justify-end gap-14'>
           <NavigationMenuItem>
             <Link href='../productsByCategory/Crop Tops'>Crop Tops</Link>
           </NavigationMenuItem>
@@ -124,6 +124,9 @@ const Navbar = () => {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href='../productsByCategory/Underwear'>Underwear</Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Shorts'>Shorts</Link>
           </NavigationMenuItem>
           {/* <NavigationMenuItemWithContent
             triggerText='Mujeres'
