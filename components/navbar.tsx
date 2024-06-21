@@ -7,17 +7,21 @@ import { useSelector } from 'react-redux';
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
+  // NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
+  // NavigationMenuTrigger,
 } from './ui/navigation-menu';
 import { BsBag, AiOutlineHeart, IoBarChartOutline } from '../utils/icons';
 import { cn } from './ui/utils';
 import SearchBar from './searchBar';
 import ProfileDropDownMenu from './profile_dropdown_menu';
-import { accesoriesTags, womenTags } from '../utils/navigation-tags';
+/* import {
+  accesoriesTags,
+  menTags,
+  categoryTags,
+} from '../utils/navigation-tags'; */
 import { ShopCart } from './cart';
 
 const ListItem = React.forwardRef<
@@ -39,7 +43,7 @@ const ListItem = React.forwardRef<
 ));
 ListItem.displayName = 'ListItem';
 
-const NavigationMenuColumn = ({
+/* const NavigationMenuColumn = ({
   column,
 }: {
   column: { title: string; items: { href: string; description: string }[] }[];
@@ -56,9 +60,9 @@ const NavigationMenuColumn = ({
       </div>
     ))}
   </div>
-);
+); */
 
-const renderNavigationItems = (tags: any) => (
+/* const renderNavigationItems = (tags: any) => (
   <ul className='flex-cols flex h-[35rem] w-dvw gap-x-20'>
     {tags.map((column: any, columnIndex: number) => (
       <NavigationMenuColumn key={columnIndex} column={column} />
@@ -79,7 +83,7 @@ const NavigationMenuItemWithContent = ({
       {renderNavigationItems(contentItems)}
     </NavigationMenuContent>
   </NavigationMenuItem>
-);
+); */
 
 const Navbar = () => {
   // TODO: search why is needed the cartItemCount
@@ -105,19 +109,34 @@ const Navbar = () => {
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
-        <NavigationMenuList className='justify-end'>
-          <NavigationMenuItemWithContent
-            triggerText='Women'
-            contentItems={womenTags}
-          />
+        <NavigationMenuList className='m-5 justify-end gap-20'>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Crop Tops'>Crop Tops</Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Hoodies'>Hoodies</Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Joggers'>Joggers</Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Sports Bra'>Sports Bra</Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link href='../productsByCategory/Underwear'>Underwear</Link>
+          </NavigationMenuItem>
           {/* <NavigationMenuItemWithContent
-            triggerText='Mens'
-            contentItems={menTags}
-          /> */}
-          <NavigationMenuItemWithContent
-            triggerText='Accessories'
-            contentItems={accesoriesTags}
+            triggerText='Mujeres'
+            contentItems={categoryTags}
           />
+          <NavigationMenuItemWithContent
+            triggerText='Hombres (Próximamente)'
+            contentItems={menTags}
+          />
+          <NavigationMenuItemWithContent
+            triggerText='Accesorios (Próximamente)'
+            contentItems={accesoriesTags}
+          /> */}
         </NavigationMenuList>
         <NavigationMenuList className='mr-[5rem] gap-x-6'>
           <NavigationMenuItem>

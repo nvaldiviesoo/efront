@@ -84,7 +84,7 @@ export default function Users() {
                           Saldo disponible
                         </TableHead>
                         <TableHead className='text-right'>
-                          Acticar/Desactivar Staff
+                          Activar/Desactivar Staff
                         </TableHead>
                       </TableRow>
                     </TableHeader>

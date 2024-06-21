@@ -18,6 +18,7 @@ export const productApi = createApi({
         },
       }),
     }),
+
     getAllProductByID: builder.query({
       query: (id) => ({
         url: '/get_product_by_id_specific_color/',
@@ -26,6 +27,13 @@ export const productApi = createApi({
         },
       }),
     }),
+
+    getProductsByCategory: builder.query({
+      query: (category) => ({
+        url: `/filter_products/?category=${category}`,
+      }),
+    }),
+
     createProduct: builder.mutation({
       query: (product) => ({
         url: '/add_product/',
@@ -39,6 +47,7 @@ export const productApi = createApi({
         },
       }),
     }),
+
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: `/delete_product_by_id/?id=${id}`,
@@ -50,6 +59,7 @@ export const productApi = createApi({
         },
       }),
     }),
+
     updateProduct: builder.mutation({
       query: (product) => ({
         url: '/stock_update/',
@@ -70,6 +80,7 @@ export const {
   useGetProductsQuery,
   useGetProductDetailQuery,
   useGetAllProductByIDQuery,
+  useGetProductsByCategoryQuery,
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
