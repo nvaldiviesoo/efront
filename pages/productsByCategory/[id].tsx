@@ -38,7 +38,7 @@ const ProductsByCategory = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log('EL ID QUE ME LLEGA ES:', id);
-  const { data, isLoading } = useGetProductsByCategoryQuery(id);
+  const { data, isLoading, isError } = useGetProductsByCategoryQuery(id);
   console.log('LA DATA QUE ME LLEGA ES:', data);
   const accordionItems = [
     'SORT BY',
@@ -74,38 +74,44 @@ const ProductsByCategory = () => {
           <div className='flex w-full flex-col gap-4'>
             <h2 className='text-4xl font-bold'>{id}</h2>
             <div className='flex w-full flex-row flex-wrap gap-20'>
-              {data.data.map((product) => (
-                <div key={product.id} className='w-[15rem]'>
-                  <Link href={`../products/${product.id}`}>
-                    <Card className='cursor-pointer rounded-none border-0 bg-[#F7F7F7]'>
-                      <CardContent className='flex h-[20rem] px-0'>
-                        <div className='relative h-[18rem] w-[15rem]'>
-                          <Image
-                            src={
-                              product.image
-                                ? product.image
-                                : '/product-image-placeholder.png'
-                            }
-                            alt='product'
-                            quality={100}
-                            sizes='50vw'
-                            fill
-                          />
-                        </div>
-                      </CardContent>
-                      <CardFooter className='my-0 flex flex-col items-start justify-start px-5 pt-0.5'>
-                        <p>{product.name}</p>
-                        <p className='text-[0.7rem] text-slate-500'>
-                          {product.description}
-                        </p>
-                        <p className='text-[0.7rem] font-bold'>
-                          CLP ${product.price}
-                        </p>
-                      </CardFooter>
-                    </Card>
-                  </Link>
+              {isError ? (
+                <div className='text-slate-500'>
+                  Actualmente no hay productos en esta categoría . . .
                 </div>
-              ))}
+              ) : (
+                data.data.map((product) => (
+                  <div key={product.id} className='w-[15rem]'>
+                    <Link href={`../products/${product.id}`}>
+                      <Card className='cursor-pointer rounded-none border-0 bg-[#F7F7F7]'>
+                        <CardContent className='flex h-[20rem] px-0'>
+                          <div className='relative h-[18rem] w-[15rem]'>
+                            <Image
+                              src={
+                                product.image
+                                  ? product.image
+                                  : '/product-image-placeholder.png'
+                              }
+                              alt='product'
+                              quality={100}
+                              sizes='50vw'
+                              fill
+                            />
+                          </div>
+                        </CardContent>
+                        <CardFooter className='my-0 flex flex-col items-start justify-start px-5 pt-0.5'>
+                          <p>{product.name}</p>
+                          <p className='text-[0.7rem] text-slate-500'>
+                            {product.description}
+                          </p>
+                          <p className='text-[0.7rem] font-bold'>
+                            CLP ${product.price}
+                          </p>
+                        </CardFooter>
+                      </Card>
+                    </Link>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>
