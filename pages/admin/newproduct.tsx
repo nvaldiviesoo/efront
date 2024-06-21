@@ -68,6 +68,7 @@ const FormSchema = z.object({
   description: z.string().nonempty({
     message: 'La descripción del producto no puede estar vacía',
   }),
+  image: z.any().optional(),
 });
 
 export default function NewProduct() {
@@ -86,11 +87,24 @@ export default function NewProduct() {
       size: '',
       color: '',
       quantity: 0,
+      image: null,
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    createProduct(data)
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('description', data.description);
+    formData.append('price', String(data.price));
+    formData.append('category', data.category);
+    formData.append('gender', data.gender);
+    formData.append('size', data.size);
+    formData.append('color', data.color);
+    formData.append('quantity', String(data.quantity));
+    if (data.image) {
+      formData.append('image', data.image);
+    }
+    createProduct(formData)
       .unwrap()
       .then(() => {
         toast({
@@ -130,6 +144,7 @@ export default function NewProduct() {
                     <form
                       onSubmit={form.handleSubmit(onSubmit)}
                       className='w-full space-y-6'
+                      encType='multipart/form-data'
                     >
                       <Card>
                         <CardHeader>
@@ -407,7 +422,23 @@ export default function NewProduct() {
                           </div>
                           <div className='space-y-1'>
                             <Label htmlFor='image'>Cargar imagen</Label>
-                            <Input id='image' type='file' />
+                            <FormField
+                              control={form.control}
+                              name='image'
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormControl>
+                                    <Input
+                                      type='file'
+                                      onChange={(e) =>
+                                        field.onChange(e.target.files[0])
+                                      }
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
                           </div>
                         </CardContent>
                         <CardFooter>
