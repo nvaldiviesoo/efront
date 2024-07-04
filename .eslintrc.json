@@ -21,7 +21,8 @@
   ],
   "ignorePatterns": [
     "**/*.js",
-    "**/*.json"
+    "**/*.json",
+    "cypress/*"
   ],
   "rules": {
     "prettier/prettier": ["error"],
