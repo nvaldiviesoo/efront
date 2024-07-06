@@ -72,6 +72,20 @@ export const productApi = createApi({
         },
       }),
     }),
+
+    updateDiscount: builder.mutation({
+      query: (product) => ({
+        url: '/edit_product_discount/',
+        method: 'PATCH',
+        body: product,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:
+            // TODO: Change this to a real token
+            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -83,4 +97,5 @@ export const {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useUpdateDiscountMutation,
 } = productApi;
