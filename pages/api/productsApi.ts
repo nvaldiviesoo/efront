@@ -6,13 +6,10 @@ export const productApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/products`,
     prepareHeaders: (headers, { getState = useUserToken }) => {
-      // TODO get token from local storage
-      // const token = process.env.NEXT_PUBLIC_TOKEN;
       const user = getState();
       if (user.auth.user) {
         headers.set('Authorization', `Bearer ${user.auth?.user.access}`);
       }
-      headers.set('Content-Type', 'application/json');
       return headers;
     },
   }),
@@ -75,9 +72,6 @@ export const productApi = createApi({
         body: product,
         headers: {
           'Content-Type': 'application/json',
-          Authorization:
-            // TODO: Change this to a real token
-            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
         },
       }),
     }),
@@ -88,9 +82,7 @@ export const productApi = createApi({
         method: 'POST',
         body: product,
         headers: {
-          Authorization:
-            // TODO: Change this to a real token
-            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+          'Content-Type': 'application/json',
         },
       }),
     }),
