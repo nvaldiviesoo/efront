@@ -81,6 +81,19 @@ export const productApi = createApi({
         },
       }),
     }),
+
+    createMassiveUpload: builder.mutation({
+      query: (product) => ({
+        url: '/add_multiple_products/',
+        method: 'POST',
+        body: product,
+        headers: {
+          Authorization:
+            // TODO: Change this to a real token
+            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -92,5 +105,6 @@ export const {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useCreateMassiveUploadMutation,
   useUpdateDiscountMutation,
 } = productApi;
