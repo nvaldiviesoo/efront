@@ -68,7 +68,10 @@ export default function Products() {
 
   useEffect(() => {
     if (data) {
-      setProducts(data);
+      const sortedProducts = [...data].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      setProducts(sortedProducts);
     }
   }, [data]);
 
