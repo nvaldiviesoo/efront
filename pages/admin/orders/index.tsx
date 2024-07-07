@@ -72,7 +72,7 @@ export default function Orders() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {data.data.map((order) => (
+                      {data?.data?.map((order) => (
                         <TableRow className='bg-accent'>
                           <TableCell>
                             <div className='font-medium'>{order.id}</div>
@@ -91,7 +91,7 @@ export default function Orders() {
                             </Badge>
                           </TableCell>
                           <TableCell className='hidden md:table-cell'>
-                            ${order.total_amount}
+                            CLP ${order.total_amount}
                           </TableCell>
                           <TableCell className='text-right'>
                             <Link href={`orders/${order.id}`}>
