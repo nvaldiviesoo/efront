@@ -38,7 +38,7 @@ const Search = () => {
               </div>
             ) : (
               <div className='mb-4 text-xl font-bold'>
-                Productos que coindicen con &apos;{query}&apos;
+                Productos que coinciden con &apos;{query}&apos;
               </div>
             )}
             <div className='flex w-full flex-row flex-wrap gap-20'>
