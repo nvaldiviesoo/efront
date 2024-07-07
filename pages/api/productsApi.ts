@@ -9,7 +9,7 @@ export const productApi = createApi({
       // TODO get token from local storage
       // const token = process.env.NEXT_PUBLIC_TOKEN;
       const user = getState();
-      if (user) {
+      if (user.auth.user) {
         headers.set('Authorization', `Bearer ${user.auth?.user.access}`);
       }
       headers.set('Content-Type', 'application/json');
