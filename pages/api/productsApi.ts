@@ -1,9 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { useUserToken } from './tokenHooks';
 
 export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/products`,
+    prepareHeaders: (headers, { getState = useUserToken }) => {
+      // TODO get token from local storage
+      // const token = process.env.NEXT_PUBLIC_TOKEN;
+      const user = getState();
+      if (user.auth.user) {
+        headers.set('Authorization', `Bearer ${user.auth?.user.access}`);
+      }
+      headers.set('Content-Type', 'application/json');
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getProducts: builder.query({
@@ -39,11 +50,6 @@ export const productApi = createApi({
         url: '/add_product/',
         method: 'POST',
         body: product,
-        headers: {
-          Authorization:
-            // TODO: Change this to a real token
-            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
       }),
     }),
 
@@ -51,11 +57,6 @@ export const productApi = createApi({
       query: (id) => ({
         url: `/delete_product_by_id/?id=${id}`,
         method: 'DELETE',
-        headers: {
-          Authorization:
-            // TODO: Change this to a real token
-            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
       }),
     }),
 
@@ -64,12 +65,6 @@ export const productApi = createApi({
         url: '/stock_update/',
         method: 'PUT',
         body: product,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization:
-            // TODO: Change this to a real token
-            `Bearer ${process.env.NEXT_PUBLIC_TOKEN}`,
-        },
       }),
     }),
 
