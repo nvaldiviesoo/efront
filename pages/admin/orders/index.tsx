@@ -72,7 +72,7 @@ export default function Orders() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {data.data.map((order) => (
+                      {data?.data?.map((order) => (
                         <TableRow className='bg-accent'>
                           <TableCell>
                             <div className='font-medium'>{order.id}</div>
